@@ -19,22 +19,51 @@
             >
 
                 <v-text-field
-                v-model="username"
-                label="Username"
-                required
+                v-model="name"
+                :rules="nameRules"
+                label="Deployement Name"
                 disabled="true"
                 ></v-text-field>
-
+                
                 <v-text-field
-                v-model="container_id"
-                label="Container Id"
+                v-model="app"
+                :rules="nameRules"
+                label="Container Name"
+                disabled="true"
+                ></v-text-field>
+                
+                <v-text-field
+                v-model="image"
+                :rules="nameRules"
+                label="Image Name"
+                disabled="true"
+                ></v-text-field>
+                
+                <v-text-field
+                v-model="port"
+                :rules="nameRules"
+                label="Port Number"
+                disabled="true"
+                ></v-text-field>
+                
+                <v-text-field
+                v-model="cpu"
+                :rules="nameRules"
+                label="CPU Requirement"
+                disabled="true"
+                ></v-text-field>
+                
+                <v-text-field
+                v-model="memory"
+                :rules="nameRules"
+                label="Memory Requirement"
                 disabled="true"
                 ></v-text-field>
 
                 <v-text-field
                 v-model="container_lifetime"
                 label="Container Max Running Time"
-                required
+                disabled="true"
                 ></v-text-field>
 
                 <v-text-field
@@ -67,9 +96,13 @@
 <script>
   export default {
     data: () => ({
-      valid: true,
-      username: "himanghu",
-      container_id: "1x2dsrt33",
+      valid: true, 
+      name: '',
+      app : '',
+      cpu : '',
+      memory : '',
+      image : '',
+      port : '',
       container_lifetime: '',
       container_maxsize: '',
       container_maxreplica: '',

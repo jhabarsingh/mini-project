@@ -23,6 +23,7 @@
                 :items="items1"
                 label="Filters"
                 solo
+                light
                 ></v-select>
             </v-col>
 
@@ -47,6 +48,14 @@
 
                 <v-spacer />
                 <div>
+                    <v-chip
+                        class="ma-2"
+                        color="red"
+                        text-color="white"
+                        >
+                        Pending
+                    </v-chip>
+
                     <v-btn icon
                         style="margin-left: 5px;"
                         @click="$router.push('/admin')"
@@ -69,12 +78,6 @@
                         <v-icon>mdi-delete</v-icon>
                     </v-btn>
 
-                    <v-btn icon
-                            style="margin-left: 5px;"
-                        @click="setDialog(index)"
-                    >
-                        <v-icon>mdi-send</v-icon>
-                    </v-btn>
                 </div>
 
               </template>

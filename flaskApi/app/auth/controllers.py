@@ -38,7 +38,10 @@ def signin():
     if not bcrypt.check_password_hash(user.password,password):
         return AppError.error("Invalid Password.")
     res = {}
-    res['username'] = username
+    u = {}
+    u['username'] = username
+    u['role'] = user.role
+    res['user'] = u
     res['accessToken'] = create_access_token(str(user.id),expires_delta=timedelta(days=1))
     return res,200
 

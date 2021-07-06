@@ -100,6 +100,7 @@
       async validate () {
         let a = this.$refs.form.validate()
         if(a) {
+            let token = localStorage.getItem("access");
             const requirements = {
                 name : this.name,
                 app : this.app,
@@ -110,7 +111,13 @@
             };
 
             console.log(requirements);
-            const response = await axios.post("localhost:8000/api/user/send-requirements",{requirements});
+            const response = await axios.post("http://localhost:8000/api/user/send-requirements",
+                {
+                    requirements
+                },
+                { 
+                    headers: {"Authorization" : `Bearer ${token}`}
+                });
             console.log(response.data);
         }
       },

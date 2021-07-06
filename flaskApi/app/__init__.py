@@ -24,6 +24,8 @@ api.register_blueprint(auth)
 from app.user.controllers import user
 api.register_blueprint(user)
 
+from app.admin.controllers import admin
+api.register_blueprint(admin)
 
 app.register_blueprint(api)
 

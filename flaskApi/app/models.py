@@ -25,3 +25,4 @@ class UserDeploymentRequest(db.Document):
     cpu = db.StringField(required=True)
     memory = db.StringField(required=True)
     by = db.ReferenceField('Users',required=True)
+    status = db.StringField(default="pending")

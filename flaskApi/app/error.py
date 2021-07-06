@@ -1,6 +1,6 @@
 from functools import wraps
 from flask import request
-from mongoengine.errors import NotUniqueError
+from mongoengine.errors import NotUniqueError,ValidationError
 
 def handleErrors(f):
     @wraps(f)
@@ -14,6 +14,8 @@ def handleErrors(f):
             return AppError.badRequest('Key not found: '+str(e.args[0]))
         except NotUniqueError as e:
             return AppError.conflict('Value Already exists')
+        except ValidationError as e:
+            return AppError.badRequest(e.message)
     return decorated_function
 
 class AppError:

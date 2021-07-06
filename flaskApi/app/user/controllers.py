@@ -8,18 +8,17 @@ from app.models import  Users,UserDeploymentRequest
 user = Blueprint('user',__name__,url_prefix='/user')
 
 @user.route('/send-requirements',methods=['POST'])
+@handleErrors
 @jwt_required()
 def requirements():
     identity = get_jwt_identity()
     data = request.get_json()
     data = data['requirements']
     data['by'] = identity
-    print(identity)
-    response = jsonify({'message':'Added Sucessfull'})
     requirements = UserDeploymentRequest(**data)
     requirements.save()
     print(requirements)
-
+    response = jsonify({'message':'Added Sucessfull'})
     return response,200
 
 

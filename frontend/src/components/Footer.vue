@@ -48,11 +48,11 @@
         'mdi-github'
       ],
       links: [
-          'https://www.facebook.com/jabbe.don/',
-          'https://twitter.com/BhatiJhabar',
-          'https://www.linkedin.com/in/jhabar-bhati-774969134/',
-          'https://www.instagram.com/bhatijhabarsingh/',
-          'https://github.com/jhabarsingh/SIMADIAN'
+          'https://github.com/jhabarsingh/mini-project',
+          'https://github.com/jhabarsingh/mini-project',
+          'https://github.com/jhabarsingh/mini-project',
+          'https://github.com/jhabarsingh/mini-project',
+          'https://github.com/jhabarsingh/mini-project'
       ],
       footer: "Gratitude makes sense of our past, brings peace for today, and creates a vision for tomorrow."
     }),

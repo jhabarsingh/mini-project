@@ -23,7 +23,7 @@ export default new Vuex.Store({
     message: "Hey!",
     selectedItem: null,
     isLoggedin: (localStorage.getItem('access') ? true: false),
-    role: JSON.parse(localStorage.getItem('user')).role
+    role: localStorage.getItem('user') && JSON.parse(localStorage.getItem('user')).role
   },
   getters: {
 

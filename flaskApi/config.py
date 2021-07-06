@@ -29,3 +29,5 @@ CSRF_SESSION_KEY = os.environ['CSRF_SESSION_KEY']
 
 # Secret key for signing cookies
 SECRET_KEY = os.environ['SECRET']
+
+CORS_HEADERS = 'Content-Type'

@@ -1,8 +1,8 @@
-from flask import Flask, Blueprint, request, jsonify,render_template
+from flask import Flask, Blueprint, request, jsonify
 
 from flask_mongoengine import MongoEngine
 from flask_jwt_extended import JWTManager
-from flask_cors import CORS
+from flask_cors import CORS,cross_origin
 
 
 app = Flask(__name__)
@@ -21,8 +21,8 @@ api = Blueprint('api',__name__,url_prefix='/api')
 from app.auth.controllers import auth
 api.register_blueprint(auth)
 
-# from app.user.controllers import user
-# api.register_blueprint(user)
+from app.user.controllers import user
+api.register_blueprint(user)
 
 
 app.register_blueprint(api)

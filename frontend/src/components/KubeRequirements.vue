@@ -110,7 +110,7 @@
             };
 
             console.log(requirements);
-            const response = await axios.post("localhost:8000/api/user/send-requirements",{requirements});
+            const response = await axios.post("http://localhost:8000/api/user/send-requirements",{requirements});
             console.log(response.data);
         }
       },

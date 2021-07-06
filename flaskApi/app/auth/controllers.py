@@ -42,6 +42,7 @@ def signin():
     user = {}
     user['username'] = username
     user['role'] = user.role
+    res['user'] = user
     res['accessToken'] = create_access_token(str(user.id),expires_delta=timedelta(days=1))
     return res,200
 

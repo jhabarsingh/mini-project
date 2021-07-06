@@ -23,31 +23,13 @@
                 label="Username"
                 required
                 ></v-text-field>
-
-                <v-text-field
-                v-model="firstname"
-                :rules="nameRules"
-                label="First Name"
-                required
-                ></v-text-field>
-
-                <v-text-field
-                v-model="lastname"
-                :rules="nameRules"
-                label="Last Name"
-                required
-                ></v-text-field>
-
-
-                <v-text-field
-                v-model="email"
-                :rules="emailRules"
-                label="E-mail"
-                required
-                ></v-text-field>
                 
-
-                <DatePicker />
+                <v-text-field
+                v-model="role"
+                :rules="nameRules"
+                label="Role"
+                required
+                ></v-text-field>
 
                 <v-text-field
                 v-model="password"
@@ -81,31 +63,21 @@
 </template>
 
 <script>
-  import DatePicker from './DatePicker.vue'
-  import EventBus from './event-bus';
   import DialogAlert from './DialogAlert.vue'
   export default {
     components: {
-      DatePicker,
       DialogAlert
     },
     data: vm => ({
       select: null,
       valid: true,
       username: '',
-      firstname: '',
-      lastname: '',
       password: '',
-      email: '',
+      role : '', // admin,user
       confirm_password: '',
-      date_of_birth: vm.formatDate(new Date().toISOString().substr(0, 10)),
       nameRules: [
         v => !!v || 'Name is required',
       ],
-      emailRules: [
-        v => !!v || 'E-mail is required',
-        v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
-      ]
     }),
 
     methods: {
@@ -121,11 +93,8 @@
         if(true) {
          this.$store.dispatch('userRegister', {
             username: this.username,
-            first_name: this.firstname,
-            last_name: this.lastname,
-            date_of_birth: this.date_of_birth,
-            email: this.email,
-            password: this.password
+            password: this.password,
+            role : this.role
           })
           
           .then(res => {
@@ -156,9 +125,7 @@
     },
 
     mounted () {
-      EventBus.$on('EVENT_NAME', function (payLoad) {
-        this.date_of_birth = payLoad;
-      });
+  
     }
   }
 </script>

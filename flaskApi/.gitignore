@@ -1,0 +1,6 @@
+
+.env
+
+venv/cd ..
+
+**/__pycache__

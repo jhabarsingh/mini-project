@@ -6,7 +6,7 @@
             <center 
               style="padding:10px;font-size:30px;text-transform:uppercase;"
             >
-              Admin Portal
+              Update Container Settings
             </center>
             
             <v-divider />
@@ -17,7 +17,20 @@
                 lazy-validation
                 style="padding:30px;"
             >
-              
+
+                <v-text-field
+                v-model="username"
+                label="Username"
+                required
+                disabled="true"
+                ></v-text-field>
+
+                <v-text-field
+                v-model="container_id"
+                label="Container Id"
+                disabled="true"
+                ></v-text-field>
+
                 <v-text-field
                 v-model="container_lifetime"
                 label="Container Max Running Time"
@@ -55,6 +68,8 @@
   export default {
     data: () => ({
       valid: true,
+      username: "himanghu",
+      container_id: "1x2dsrt33",
       container_lifetime: '',
       container_maxsize: '',
       container_maxreplica: '',

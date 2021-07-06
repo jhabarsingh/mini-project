@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import HomeLogin from '../views/HomeLogin.vue'
 import KubeRequirements from '../views/KubeRequirements.vue'
+import AllRequests from '../views/AllRequests.vue'
+
 import store from '../store/index.js';
 
 import axios from 'axios';
@@ -25,6 +27,11 @@ const routes = [
     path: '/kube-requirements',
     name: 'KubeRequirements',
     component: KubeRequirements
+  },
+  {
+    path: '/all-requests',
+    name: 'AllRequests',
+    component: AllRequests
   },
   {
     path: '/admin',

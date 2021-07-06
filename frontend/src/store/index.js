@@ -53,6 +53,7 @@ export default new Vuex.Store({
         // localStorage.setItem("refresh", res.refresh);
         localStorage.setItem("access", res.accessToken);
         localStorage.setItem("user", JSON.stringify(res.user));
+        state.role = res.user.role;
         return res;
       } catch (err) {
         if(err.response) {

@@ -72,7 +72,7 @@
     data: vm => ({
       select: null,
       valid: true,
-      items: ['User', 'Admin'],
+      items: ['User'],
       username: '',
       password: '',
       role : '', // admin,user

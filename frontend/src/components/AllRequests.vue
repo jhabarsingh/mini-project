@@ -119,13 +119,11 @@
     data: () => ({
       selected: [2],
       items: [
-          {username: "Aditya", container_id: "adasdasda1212"},
-          {username: "Aditya", container_id: "adasdasda1212"},
-          {username: "Aditya", container_id: "adasdasda1212"},
-          {username: "Aditya", container_id: "adasdasda1212"},
-          {username: "Aditya", container_id: "adasdasda1212"}
-
+          
       ],
+      pending: [],
+      running: [],
+      stopped: [],
       items1: [
           "Pending",
           "Running",
@@ -145,36 +143,22 @@
         })
       }
     },
-    watch: {
-      'page' (val) {
-        this.$router.push({
-          name: 'Sent', 
-          query: {
-            page: val
-          }
-        }).catch(err => {
-        })
-      }
-    },
     async created() {
       let item;
       let token = localStorage.getItem("access");
       let config = {
-      headers: {
-          'Content-Type': 'multipart/form-data',
-          'Authorization': 'Bearer ' + token
-        }
+        headers: {"Authorization" : `Bearer ${token}`}
       }
-      if(this.$route.query.page) {
-        item = await axios.get(this.$store.state.URL + "items/message/sent/" + '?page=' + this.$route.query.page, config)
-        this.page = +this.$route.query.page;
-      }
-      else {
-        item = await axios.get(this.$store.state.URL + "items/message/sent/", config)      
-      }
-      this.items = (item.data.results);
-      this.count = item.data.count;
-      console.log(this.items);
+        let link = this.$store.state.URL + "api/admin/get-requests";
+
+        console.log(link)
+        let response = await axios.post(link , {}, config)
+        let items = await response.data.data;
+
+        console.log(items)
+        this.pending = items.pending;
+        this.stopped = items.stopped;
+        this.running = items.running;
     }
   }
 </script>

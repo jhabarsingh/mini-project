@@ -39,7 +39,7 @@ def signin():
     if not bcrypt.check_password_hash(user.password,password):
         return AppError.error("Invalid Password.")
     res = {}
-    user = {}
+    u = {}
     u['username'] = username
     u['role'] = user.role
     res['user'] = u

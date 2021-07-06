@@ -44,3 +44,16 @@ def signin():
     res['accessToken'] = create_access_token(str(user.id),expires_delta=timedelta(days=1))
     return res,200
 
+@auth.route('/getUser',methods=['POST'])
+@jwt_required()
+@handleErrors
+def getUser():
+    identity = get_jwt_identity()
+    user = Users.objects(id=identity).first()
+    if user == None:
+        return AppError.error("Username does not exists.")
+    res = {}
+    res['username'] = user.username
+    res['role'] = user.role
+    return res,200
+

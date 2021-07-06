@@ -2,7 +2,7 @@ from flask import Flask, Blueprint, request, jsonify
 
 from flask_mongoengine import MongoEngine
 from flask_jwt_extended import JWTManager
-from flask_cors import CORS,cross_origin
+from flask_cors import CORS
 
 
 app = Flask(__name__)

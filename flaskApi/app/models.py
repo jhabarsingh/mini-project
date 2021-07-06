@@ -26,3 +26,8 @@ class UserDeploymentRequest(db.Document):
     memory = db.StringField(required=True)
     by = db.ReferenceField('Users',required=True)
     status = db.StringField(default="pending")
+    approvedBy = db.ReferenceField('Users')
+    maxReplicas = db.IntField()
+    memLimit =  db.StringField()
+    cpuLimit = db.StringField()
+    maxRuntime = db.IntField()

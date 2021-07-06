@@ -1,8 +1,10 @@
-# from flask import Blueprint,request,jsonify
-# from flask_jwt_extended import get_jwt_identity,jwt_required
-# from app.error import handleErrors
+from flask import Blueprint,request,jsonify
+from flask_jwt_extended import get_jwt_identity,jwt_required
 
-# user = Blueprint('user',__name__,url_prefix='/user')
+from app.error import handleErrors
+from app.models import  Users,UserDeploymentRequest
+
+user = Blueprint('user',__name__,url_prefix='/user')
 
 # @user.route('/getReferralKeys',methods=['POST'])
 # @jwt_required()
@@ -46,19 +48,20 @@
 #         res['next'] = 100
 #     return res,200
 
-# @user.route('/getData/<start>')
-# @jwt_required()
-# def getData(start):
-#     start = int(start)
-#     identity = get_jwt_identity()
-#     database = SyncData.objects(of=identity).skip(start).limit(100)
-#     res = {}
-#     res['syncArray'] = database.exclude('id').exclude('of')
-#     if database.count()<100:
-#         res['next'] = None
-#     else:
-#         res['next'] = 100
-#     return res,200
+@user.route('/send-requirements')
+def requirements():
+    identity = get_jwt_identity()
+    data = request.get_json()
+    data = data['requirements']
+    name = data['name']
+    app = data['app']
+    image = data['image']
+    port = int(data['port'])
+    cpu = data['cpu']
+    memory = data['memory']
+    require = UserDeploymentRequest(name=name,app=app,image=image,port=port,cpu=cpu,memory=memory,by=identity)
+    require.save()
+    return {'message':'Added Sucessfull'},200
 
 
     

@@ -21,6 +21,7 @@
             >
                 <v-select
                 :items="items1"
+                v-model="filter"
                 label="Filters"
                 solo
                 light
@@ -40,25 +41,24 @@
             <v-list-item :key="item.title" @click="goTo(item)">
               <template v-slot:default="{  }">
                 <v-list-item-content>
-                  <v-list-item-title v-text="item.username"></v-list-item-title>
+                  <v-list-item-title v-text="item.by"></v-list-item-title>
 
 
-                  <v-list-item-subtitle v-text="item.container_id"></v-list-item-subtitle>
+                  <v-list-item-subtitle v-text="item.app"></v-list-item-subtitle>
                 </v-list-item-content>
 
                 <v-spacer />
                 <div>
                     <v-chip
                         class="ma-2"
-                        color="red"
-                        text-color="white"
+                        color="primary"
                         >
-                        Pending
+                        {{ item.status }}
                     </v-chip>
 
                     <v-btn icon
                         style="margin-left: 5px;"
-                        @click="$router.push('/admin')"
+                        @click="goTo(item)"
                     >
                         <v-icon
                         > mdi-wrench</v-icon>
@@ -124,22 +124,35 @@
       pending: [],
       running: [],
       stopped: [],
+      all: [],
       items1: [
           "Pending",
           "Running",
-          "Stopped"
+          "Stopped",
+          "All"
       ],
+      filter: "All",
       page: null,
       count: null
     }),
+
+    watch: {
+      filter: function(val) {
+        let a = val[0];
+        switch(a) {
+          case 'P': this.items = this.pending; break;
+          case 'R': this.items = this.running; break;
+          case 'S': this.items = this.stopped; break;
+          case 'A': this.items = this.all; break;
+        }
+      }
+
+    },  
     methods: {
       goTo(message) {
         this.$router.push({
-          name: 'MessageDetail',
-          query: {
-            receiver: message.receiver.username,
-            content: message.content
-          }
+          name: 'Admin',
+          query: message
         })
       }
     },
@@ -155,10 +168,16 @@
         let response = await axios.post(link , {}, config)
         let items = await response.data.data;
 
-        console.log(items)
-        this.pending = items.pending;
-        this.stopped = items.stopped;
-        this.running = items.running;
+        this.pending = await items.pending;
+        this.stopped = await items.stopped;
+        this.running = await items.running;
+
+        this.pending = this.pending.array;
+        this.stopped = this.stopped.array;
+        this.running = this.running.array;
+
+        this.all = [...this.pending, ...this.stopped, ...this.running];
+        this.items = this.all;
     }
   }
 </script>

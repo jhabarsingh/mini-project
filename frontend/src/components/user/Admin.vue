@@ -19,42 +19,49 @@
             >
 
                 <v-text-field
+                v-model="username"
+                label="Deployer Name"
+                disabled="true"
+                ></v-text-field>
+
+
+                <v-text-field
                 v-model="name"
-                :rules="nameRules"
                 label="Deployement Name"
                 disabled="true"
                 ></v-text-field>
                 
                 <v-text-field
                 v-model="app"
-                :rules="nameRules"
                 label="Container Name"
                 disabled="true"
                 ></v-text-field>
                 
                 <v-text-field
                 v-model="image"
-                :rules="nameRules"
                 label="Image Name"
+                disabled="true"
+                ></v-text-field>
+
+                <v-text-field
+                v-model="status"
+                label="Status"
                 disabled="true"
                 ></v-text-field>
                 
                 <v-text-field
                 v-model="port"
-                :rules="nameRules"
                 label="Port Number"
                 disabled="true"
                 ></v-text-field>
                 
                 <v-text-field
                 v-model="cpu"
-                :rules="nameRules"
                 label="CPU Requirement"
                 ></v-text-field>
                 
                 <v-text-field
                 v-model="memory"
-                :rules="nameRules"
                 label="Memory Requirement"
                 ></v-text-field>
 
@@ -86,16 +93,18 @@
 <script>
   export default {
     data: () => ({
+      data: null,
       valid: true, 
       name: '',
+      username: '',
       app : '',
       cpu : '',
       memory : '',
       image : '',
+      status: '',
       port : '',
-      container_lifetime: '',
-      container_maxsize: '',
-      container_maxreplica: '',
+      container_lifetime: '120',
+      container_maxreplica: '5',
       select: null
     }),
     methods: {
@@ -127,5 +136,19 @@
         }
       }
     },
+    created() {
+      
+      this.data = this.$route.query
+      this.username = this.data.by;
+      this.name = this.data.name;
+      this.app = this.data.app;
+      this.image = this.data.image;
+      this.port = this.data.port;
+      this.status = this.data.status;
+      this.cpu = this.data.cpu;
+      this.memory = this.data.memory;
+      this.
+      console.log(this.data);
+    }
   }
 </script>

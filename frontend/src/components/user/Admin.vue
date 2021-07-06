@@ -20,14 +20,13 @@
               
                 <v-text-field
                 v-model="container_lifetime"
-                label="Container Max Running Time HR : MIN"
-                type="time"
+                label="Container Max Running Time"
                 required
                 ></v-text-field>
 
                 <v-text-field
                 v-model="container_maxsize"
-                label="Container Max Size MB"
+                label="Container Max Size"
                 type="text"
                 required
                 ></v-text-field>
@@ -56,8 +55,9 @@
   export default {
     data: () => ({
       valid: true,
-      password: '',
-      username: '',
+      container_lifetime: '',
+      container_maxsize: '',
+      container_maxreplica: '',
       select: null
     }),
     methods: {

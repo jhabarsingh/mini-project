@@ -7,7 +7,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    ngo_name: "MINI PROJECT",
+    ngo_name: "Kubernetes Lab Setup",
     ngo_title: "Kubernetes Lab Setup",
     URL: "http://localhost:8000/",
     drawer: null,
@@ -19,7 +19,7 @@ export default new Vuex.Store({
         "Hi"
       ]
     },
-    username: "MINI PROJECT",
+    username: "Kubernetes Lab Setup",
     message: "Hey!",
     selectedItem: null,
     isLoggedin: (localStorage.getItem('access') ? true: false),

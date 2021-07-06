@@ -64,7 +64,7 @@
       selectedItem: 0,
       items: [
         { text: 'Home', icon: 'mdi-home', route: 'home' , disabled: false},
-        { text: 'Update Profile', icon: 'mdi-cloud-upload', route: 'update-profile', disabled: (localStorage.getItem("access") ? false: true) },
+        { text: 'Deploy Container', icon: 'mdi-cloud-upload', route: 'kube-requirements', disabled: (localStorage.getItem("access") ? false: true) },
       ],
     }),
     props: [

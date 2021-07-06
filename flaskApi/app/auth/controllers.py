@@ -12,7 +12,6 @@ auth = Blueprint('auth',__name__,url_prefix='/auth')
 
 bcrypt = Bcrypt()
 
-
 @auth.route('/signup',methods=['POST'])
 @handleErrors
 def signup():

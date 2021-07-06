@@ -40,9 +40,9 @@ def signin():
         return AppError.error("Invalid Password.")
     res = {}
     user = {}
-    user['username'] = username
-    user['role'] = user.role
-    res['user'] = user
+    u['username'] = username
+    u['role'] = user.role
+    res['user'] = u
     res['accessToken'] = create_access_token(str(user.id),expires_delta=timedelta(days=1))
     return res,200
 

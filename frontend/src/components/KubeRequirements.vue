@@ -6,7 +6,7 @@
           <center 
             style="padding:10px;font-size:30px;text-transform:uppercase;"
           >
-            Requirements
+            Container Details
           </center>
 
            <v-divider />

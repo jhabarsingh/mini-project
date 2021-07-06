@@ -82,6 +82,7 @@
 
     if(this.$store.state.role && this.$store.state.role.toLowerCase() == "admin") {
         this.items.push({ text: 'All Container', icon: 'mdi-cloud-upload', route: 'all-requests', disabled: (localStorage.getItem("access") ? false: true) })
+        this.items.push({ text: 'All Users', icon: 'mdi-cloud-upload', route: 'all-users', disabled: (localStorage.getItem("access") ? false: true) })
       }
     }
   }

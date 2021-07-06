@@ -19,10 +19,9 @@
             >
               
                 <v-text-field
-                v-model="email"
-                :rules="emailRules"
-                label="E-mail"
-                type="email"
+                v-model="username"
+                :rules="nameRules"
+                label="Username"
                 required
                 ></v-text-field>
 
@@ -57,11 +56,7 @@ import DialogAlert from './DialogAlert.vue'
     data: () => ({
       valid: true,
       password: '',
-      email: '',
-      emailRules: [
-        v => !!v || 'E-mail is required',
-        v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
-      ],
+      username: '',
       select: null
     }),
     methods: {
@@ -71,13 +66,13 @@ import DialogAlert from './DialogAlert.vue'
         
         if(true) {
           this.$store.dispatch('userLogin', {
-            email: this.email,
+            username: this.username,
             password: this.password
           })
           .then(res => {
             this.$store.state.isLoggedin = true;
-            this.$store.state.username = this.email
-            localStorage.setItem("username", this.email);
+            this.$store.state.username = this.username
+            localStorage.setItem("username", this.username);
             
             this.$router.push("/home");
           })

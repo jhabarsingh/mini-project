@@ -22,15 +22,9 @@ const routes = [
     component: HomeLogin
   },
   {
-<<<<<<< HEAD
     path: '/kube-requirements',
     name: 'KubeRequirements',
     component: KubeRequirements
-=======
-    path: '/admin',
-    name: 'Admin',
-    component: () => import('../views/Admin.vue'),
->>>>>>> 6afffd4f2145c51c340b01af3cbdd82edd009882
   },
   {
     path: '/register',

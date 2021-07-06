@@ -33,8 +33,7 @@ def signin():
     data = request.get_json()
     username = data['username']
     password = data['password']
-    role = data['role']
-    user = Users.objects(username=username,role=role).first()
+    user = Users.objects(username=username).first()
     if user == None:
         return AppError.error("Username does not exists.")
     if not bcrypt.check_password_hash(user.password,password):

@@ -50,27 +50,17 @@
                 v-model="cpu"
                 :rules="nameRules"
                 label="CPU Requirement"
-                disabled="true"
                 ></v-text-field>
                 
                 <v-text-field
                 v-model="memory"
                 :rules="nameRules"
                 label="Memory Requirement"
-                disabled="true"
                 ></v-text-field>
 
                 <v-text-field
                 v-model="container_lifetime"
                 label="Container Max Running Time"
-                disabled="true"
-                ></v-text-field>
-
-                <v-text-field
-                v-model="container_maxsize"
-                label="Container Max Size"
-                type="text"
-                required
                 ></v-text-field>
 
                 <v-text-field

@@ -7,9 +7,9 @@ from app.utils import addUsernames
 
 admin = Blueprint('admin',__name__,url_prefix='/admin')
 
-@admin.route('/getRequests',methods=['POST'])
+@admin.route('/get-requests',methods=['POST'])
 @jwt_required()
-def requirements():
+def getRequets():
     identity = get_jwt_identity()
     user = Users.objects(id = identity).first()
     if(user.role=="admin"):
@@ -36,6 +36,27 @@ def requirements():
     return AppError.badRequest("Admin only route")
 
 
+@admin.route('/get-users',methods=['POST'])
+@jwt_required()
+def getUsers():
+    identity = get_jwt_identity()
+    user = Users.objects(id = identity).first()
+    if(user.role=="admin"):
+        users = Users.objects.exclude('id').exclude('password')
+        admins = list(filter(lambda x:x.role=='admin',users))
+        userss = list(filter(lambda x:x.role=='user',users))
+        response = jsonify({'data':{
+            'admins':{
+                'count':len(admins),
+                'array':admins
+            },
+            'users':{
+                'count':len(userss),
+                'array':userss
+            }
+        }})
+        return response,200
+    return AppError.badRequest("Admin only route")
 
 
     

@@ -6,3 +6,4 @@ def addUsernames(x):
     r['by'] = x.by.username
     r['created_on'] = x.id.generation_time
     return r
+

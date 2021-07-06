@@ -46,7 +46,6 @@ def signin():
 
 @auth.route('/getUser',methods=['POST'])
 @jwt_required()
-@handleErrors
 def getUser():
     identity = get_jwt_identity()
     user = Users.objects(id=identity).first()

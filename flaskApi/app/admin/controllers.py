@@ -33,7 +33,27 @@ def getRequets():
             },
         }})
         return response,200
-    return AppError.badRequest("Admin only route")
+    else:
+        requirements = UserDeploymentRequest.objects(by=identity)
+        requirements = list(map(addUsernames,requirements))
+        pending = list(filter(lambda x:x['status']=='pending',requirements))
+        running = list(filter(lambda x:x['status']=='running',requirements))
+        stopped = list(filter(lambda x:x['status']=='stopped',requirements))
+        response = jsonify({'data':{
+            'pending':{
+                'count':len(pending),
+                'array':pending
+            },
+            'running':{
+                'count':len(running),
+                'array':running
+            },
+            'stopped':{
+                'count':len(stopped),
+                'array':stopped
+            },
+        }})
+        return response,200
 
 
 @admin.route('/get-users',methods=['POST'])

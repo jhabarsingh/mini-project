@@ -8,7 +8,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     ngo_name: "MINI PROJECT",
-    ngo_title: "let's help other",
+    ngo_title: "Kubernetes Lab Setup",
     URL: "http://localhost:8000/",
     drawer: null,
     user: null,

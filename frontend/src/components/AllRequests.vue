@@ -10,10 +10,23 @@
         dark
       >
 
-        <v-toolbar-title>Containers</v-toolbar-title>
+            <v-toolbar-title>Containers</v-toolbar-title>
+           
+            <v-spacer></v-spacer>
+            
+            <v-col
+                class="d-flex"
+                cols="12"
+                sm="4"
+            >
+                <v-select
+                :items="items1"
+                label="Filters"
+                solo
+                ></v-select>
+            </v-col>
 
-        <v-spacer></v-spacer>
-
+        
       </v-toolbar>
 
       <v-list two-line>
@@ -109,6 +122,11 @@
           {username: "Aditya", container_id: "adasdasda1212"},
           {username: "Aditya", container_id: "adasdasda1212"}
 
+      ],
+      items1: [
+          "Pending",
+          "Running",
+          "Stopped"
       ],
       page: null,
       count: null

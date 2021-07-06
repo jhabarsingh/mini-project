@@ -5,6 +5,7 @@ from app import db
 class Users(db.Document):
     username = db.StringField(required=True,unique=True)
     password = db.StringField(required=True)
+    role = db.StringField(required=True)
 
 # class RegisterKeys(db.Document):
 #     by = db.ReferenceField('Users',required=True)

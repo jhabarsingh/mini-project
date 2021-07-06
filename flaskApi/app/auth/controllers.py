@@ -19,10 +19,11 @@ def signup():
         data = request.get_json()
         username = data['username']
         password = data['password']
+        role = data['role']
         if len(password)<8:
             return AppError.badRequest('Password must have length greater than or equal to 8')
         password = bcrypt.generate_password_hash(password) 
-        newUser = Users(username=username,password=password)
+        newUser = Users(username=username,password=password,role=role)
         newUser.save()
         return {'message':'SingnUp Sucessfull'},200
 
@@ -32,7 +33,8 @@ def signin():
     data = request.get_json()
     username = data['username']
     password = data['password']
-    user = Users.objects(username=username).first()
+    role = data['role']
+    user = Users.objects(username=username,role=role).first()
     if user == None:
         return AppError.error("Username does not exists.")
     if not bcrypt.check_password_hash(user.password,password):

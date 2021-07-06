@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import HomeLogin from '../views/HomeLogin.vue'
+import KubeRequirements from '../views/KubeRequirements.vue'
 import store from '../store/index.js';
 
 import axios from 'axios';
@@ -21,9 +22,9 @@ const routes = [
     component: HomeLogin
   },
   {
-    path: '/admin',
-    name: 'Admin',
-    component: () => import('../views/Admin.vue'),
+    path: '/kube-requirements',
+    name: 'KubeRequirements',
+    component: KubeRequirements
   },
   {
     path: '/register',

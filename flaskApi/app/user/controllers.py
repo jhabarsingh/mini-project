@@ -50,7 +50,7 @@ user = Blueprint('user',__name__,url_prefix='/user')
 
 @user.route('/send-requirements')
 def requirements():
-    identity = get_jwt_identity()
+    # identity = get_jwt_identity()
     data = request.get_json()
     data = data['requirements']
     name = data['name']
@@ -59,8 +59,8 @@ def requirements():
     port = int(data['port'])
     cpu = data['cpu']
     memory = data['memory']
-    require = UserDeploymentRequest(name=name,app=app,image=image,port=port,cpu=cpu,memory=memory,by=identity)
-    require.save()
+    # require = UserDeploymentRequest(name=name,app=app,image=image,port=port,cpu=cpu,memory=memory,by=identity)
+    # require.save()
     return {'message':'Added Sucessfull'},200
 
 

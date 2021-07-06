@@ -23,7 +23,7 @@ export default new Vuex.Store({
     message: "Hey!",
     selectedItem: null,
     isLoggedin: (localStorage.getItem('access') ? true: false),
-    role: localStorage.getItem('user') && JSON.parse(localStorage.getItem('user')).role
+    role: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')).role : null
   },
   getters: {
 
@@ -47,8 +47,9 @@ export default new Vuex.Store({
     async userLogin({commit, state}, data) {
       try {
         console.log(data);
-        let res = await axios.post(state.URL + 'api/token/', data)
-        res = res.data;
+        let res = await axios.post(state.URL + 'api/auth/signin', data)
+        res = res.data
+        console.log(res);
         localStorage.setItem("refresh", res.refresh);
         localStorage.setItem("access", res.access);
         return res;

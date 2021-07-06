@@ -65,7 +65,7 @@
                 class="mr-4"
                 @click="validate"
                 >
-                Send
+                Deploy
                 </v-btn>
 
             </v-form>

@@ -23,13 +23,14 @@
                 label="Username"
                 required
                 ></v-text-field>
-                
-                <v-text-field
-                v-model="role"
-                :rules="nameRules"
-                label="Role"
-                required
-                ></v-text-field>
+
+                <v-select
+                  :items="items"
+                  v-model="role"
+                  label="Role"
+                  solo
+                  required
+                ></v-select>
 
                 <v-text-field
                 v-model="password"
@@ -71,6 +72,7 @@
     data: vm => ({
       select: null,
       valid: true,
+      items: ['User', 'Admin'],
       username: '',
       password: '',
       role : '', // admin,user

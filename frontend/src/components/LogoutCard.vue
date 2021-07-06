@@ -11,7 +11,7 @@
     <v-card-title
         style="display:flex;justify-content:center;"
     >
-      SIMADIAN
+      {{ $store.state.ngo_name }}
     </v-card-title>
         👋
     <v-card-subtitle>

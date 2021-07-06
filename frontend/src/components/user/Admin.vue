@@ -20,13 +20,13 @@
               
                 <v-text-field
                 v-model="container_lifetime"
-                label="Container Max Running Time MIN"
+                label="Container Max Running Time"
                 required
                 ></v-text-field>
 
                 <v-text-field
                 v-model="container_maxsize"
-                label="Container Max Size MB"
+                label="Container Max Size"
                 type="text"
                 required
                 ></v-text-field>

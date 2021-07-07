@@ -13,7 +13,7 @@ admin = Blueprint('admin',__name__,url_prefix='/admin')
 def getRequets():
     identity = get_jwt_identity()
     user = Users.objects(id = identity).first()
-    if(user.role=="admin"):
+    if(user.role.lower() =="admin"):
         requirements = UserDeploymentRequest.objects
         requirements = list(map(addUsernames,requirements))
         pending = list(filter(lambda x:x['status']=='pending',requirements))
@@ -83,6 +83,7 @@ def getUsers():
 @adminRoute
 def updateRequirement():
     data = request.get_json()
+    data = data.get("requirements")
     _id =  data['id']
     req = UserDeploymentRequest.objects(id=_id).first()
     if 'cpu' in data:

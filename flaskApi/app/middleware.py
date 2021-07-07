@@ -10,7 +10,7 @@ def adminRoute(f):
     def decorated_function(*args, **kwargs):
         identity = get_jwt_identity()
         user = Users.objects(id = identity).first()
-        if(user.role=="admin"):
+        if(user.role.lower() =="admin"):
             return f(*args, **kwargs)
         else:
             return AppError.badRequest("Admin only route")

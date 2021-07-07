@@ -17,9 +17,9 @@ def requirements():
     data['by'] = identity
     requirements = UserDeploymentRequest(**data)
     requirements.save()
-    requirements.appName = str(requirements.name)+"_app_"+str(requirements.id)
-    requirements.deploymentName = str(requirements.name)+"_deploy_"+str(requirements.id)
-    requirements.serviceName = str(requirements.name)+"_service_"+str(requirements.id)
+    requirements.appName = str(requirements.name)+"-app-"+str(requirements.id)
+    requirements.deploymentName = str(requirements.name)+"-deploy-"+str(requirements.id)
+    requirements.serviceName = str(requirements.name)+"-service-"+str(requirements.id)
     requirements.save()
     return jsonify({'message':'Added Sucessfull'}),200
 

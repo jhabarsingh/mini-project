@@ -120,14 +120,13 @@ def deleteContainer():
 @jwt_required()
 @handleErrors
 @adminRoute
-def deleteContainer():
+def deployDeployment():
     data = request.get_json()
     _id =  data['id']
     req = UserDeploymentRequest.objects(id=_id).first()
     if(req.status!="running"):
-        Kube.deploy(req,core_v1,apps_v1)
+        req.exposedPort=Kube.deploy(req,core_v1,apps_v1)
         req.status = "running"
-        req.exposedPort = 8080
         req.save()
         return {'message':'Deleted Successfully'},200
     else:
@@ -137,7 +136,7 @@ def deleteContainer():
 @jwt_required()
 @handleErrors
 @adminRoute
-def deleteContainer():
+def deleteDeployment():
     data = request.get_json()
     _id =  data['id']
     req = UserDeploymentRequest.objects(id=_id).first()

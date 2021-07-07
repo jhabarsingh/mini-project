@@ -12,7 +12,7 @@ def addUsernames(x):
 
 class Kube:
     @classmethod
-    def create_deployment_object(cls,name,deployment_name,image,port,cpu,memory,cpuLimit,memLimit):
+    def create_deployment_object(cls,name,deployment_name,image,port,cpu,memory,cpuLimit,memLimit,replica):
         # Configureate Pod template container
         container = client.V1Container(
             name=name,
@@ -31,7 +31,7 @@ class Kube:
 
         # Create the specification of deployment
         spec = client.V1DeploymentSpec(
-            replicas=3, template=template, selector={
+            replicas=replica, template=template, selector={
                 "matchLabels":
                 {"app": name}})
 
@@ -89,16 +89,14 @@ class Kube:
     
     @classmethod
     def deploy(cls,req,coreApi,appsApi,namespace="default"):
-        deployObject = cls.create_deployment_object(str(req.appName),str(req.deploymentName),str(req.image),int(req.port),str(req.cpu),str(req.memory),str(req.cpuLimit),str(req.memLimit))
+        deployObject = cls.create_deployment_object(str(req.appName),str(req.deploymentName),str(req.image),int(req.port),str(req.cpu),str(req.memory),str(req.cpuLimit),str(req.memLimit),int(req.maxReplicas))
         deployResponse = cls.create_deployment(appsApi,deployObject,namespace)
         serviceObject = cls.create_service_object(str(req.serviceName),str(req.appName),8082,int(req.port))
         serviceResponse = cls.create_service(coreApi,serviceObject,namespace)
-        print(deployResponse)
-        print(serviceResponse)
+        return serviceResponse.spec.ports[0].node_port
 
     @classmethod
     def delete(cls,req,coreApi,appsApi,namespace="default"):
         deployResponse = cls.delete_deployment(appsApi,str(req.deploymentName),namespace)
         serviceResponse = cls.delete_service(coreApi,str(req.serviceName),namespace)
-        print(deployResponse)
-        print(serviceResponse)
+

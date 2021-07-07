@@ -4,6 +4,7 @@ from flask_cors import CORS, cross_origin
 
 from app.error import handleErrors
 from app.models import  Users,UserDeploymentRequest
+from app.utils import Kube
 
 user = Blueprint('user',__name__,url_prefix='/user')
 
@@ -22,6 +23,18 @@ def requirements():
     requirements.serviceName = str(requirements.name)+"-service-"+str(requirements.id)
     requirements.save()
     return jsonify({'message':'Added Sucessfull'}),200
+
+@user.route('/delete-entry',methods=['POST'])
+@jwt_required()
+@handleErrors
+def deleteEntry():
+    data = request.get_json()
+    _id =  data['id']
+    req = UserDeploymentRequest.objects(id=_id).first()
+    if(req.status=="running"):
+        Kube.delete(req,core_v1,apps_v1)
+    req.delete()
+    return {'message':'Deleted Successfully'},200
 
 
     

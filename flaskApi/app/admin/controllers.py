@@ -102,19 +102,6 @@ def updateRequirement():
     req.save()
     return {'message':'Updated Successfully'},200
 
-@admin.route('/delete-container',methods=['POST'])
-@jwt_required()
-@handleErrors
-@adminRoute
-def deleteContainer():
-    data = request.get_json()
-    _id =  data['id']
-    req = UserDeploymentRequest.objects(id=_id).first()
-    if(req.status!="running"):
-        req.delete()
-        return {'message':'Deleted Successfully'},200
-    else:
-        return AppError.error("The container is running")
 
 @admin.route('/deploy',methods=['POST'])
 @jwt_required()

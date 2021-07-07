@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import HomeLogin from '../views/HomeLogin.vue'
 import KubeRequirements from '../views/KubeRequirements.vue'
 import AllRequests from '../views/AllRequests.vue'
+import AllUserRequests from '../views/AllUserRequests.vue'
 import AllUsers from '../views/AllUsers.vue'
 
 import store from '../store/index.js';
@@ -33,6 +34,11 @@ const routes = [
     path: '/all-requests',
     name: 'AllRequests',
     component: AllRequests
+  },
+  {
+    path: '/all-user-requests',
+    name: 'AllUserRequests',
+    component: AllUserRequests
   },
   {
     path: '/all-users',

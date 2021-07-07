@@ -83,7 +83,7 @@
         }
 
       else if(this.$store.state.role && this.$store.state.role.toLowerCase() == "user") {
-          this.items.push({ text: 'Deployment Status', icon: 'mdi-cloud-upload', route: 'all-requests', disabled: (localStorage.getItem("access") ? false: true) })
+          this.items.push({ text: 'Deployment Status', icon: 'mdi-cloud-upload', route: 'all-user-requests', disabled: (localStorage.getItem("access") ? false: true) })
         }
       }
   }

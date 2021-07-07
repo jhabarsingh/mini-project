@@ -64,12 +64,12 @@
                         > mdi-wrench</v-icon>
                     </v-btn>
                     
-                    <v-btn icon
+                    <!-- <v-btn icon
                         style="margin-left: 5px;"
                         @click="setDialog(index)"
                     >
                         <v-icon>mdi-checkbox-marked-circle</v-icon>
-                    </v-btn>
+                    </v-btn> -->
 
                     <v-btn icon
                             style="margin-left: 5px;"

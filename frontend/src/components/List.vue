@@ -78,12 +78,12 @@
     },
     created() {
       if(this.$store.state.role && this.$store.state.role.toLowerCase() == "admin") {
-          this.items.push({ text: 'All Container', icon: 'mdi-cloud-upload', route: 'all-requests', disabled: (localStorage.getItem("access") ? false: true) })
-          this.items.push({ text: 'All Users', icon: 'mdi-cloud-upload', route: 'all-users', disabled: (localStorage.getItem("access") ? false: true) })
+          this.items.push({ text: 'All Container', icon: 'mdi-folder-open', route: 'all-requests', disabled: (localStorage.getItem("access") ? false: true) })
+          this.items.push({ text: 'All Users', icon: 'mdi-account', route: 'all-users', disabled: (localStorage.getItem("access") ? false: true) })
         }
 
       else if(this.$store.state.role && this.$store.state.role.toLowerCase() == "user") {
-          this.items.push({ text: 'Deployment Status', icon: 'mdi-cloud-upload', route: 'all-user-requests', disabled: (localStorage.getItem("access") ? false: true) })
+          this.items.push({ text: 'Deployment Status', icon: 'mdi-folder-open', route: 'all-user-requests', disabled: (localStorage.getItem("access") ? false: true) })
         }
       }
   }

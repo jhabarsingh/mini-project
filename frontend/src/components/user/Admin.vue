@@ -1,7 +1,8 @@
 <template>
-    <v-card
-        style="max-width:800px;margin:auto;"
-    >
+<div
+  style="max-width:800px;margin:auto;"
+>
+    <v-card>
         <template>
             <center 
               style="padding:10px;font-size:30px;text-transform:uppercase;"
@@ -88,6 +89,18 @@
             </v-form>
             </template>
     </v-card>
+    <v-card
+      style="margin-top: 10px;"
+    >
+          <v-list>
+            <v-list-item>
+              <v-list-item-avatar>
+                <v-img src="https://cdn.vuetifyjs.com/images/john.png"></v-img>
+              </v-list-item-avatar>
+            </v-list-item>
+          </v-list>
+    </v-card>
+</div>
 </template>
 
 <script>

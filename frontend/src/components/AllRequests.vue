@@ -157,6 +157,14 @@
       }
     },
     async created() {
+      if(this.$store.state.admin.all.length > 0) {
+        this.all = this.$store.state.admin.all;
+        this.pending = this.$store.state.admin.pending;
+        this.stopped = this.$store.state.admin.stopped;
+        this.running = this.$store.state.admin.running;
+        this.items = this.all;
+        return;
+      }
       let item;
       let token = localStorage.getItem("access");
       let config = {
@@ -178,6 +186,11 @@
 
         this.all = [...this.pending, ...this.stopped, ...this.running];
         this.items = this.all;
+        this.$store.state.admin.all = this.all;
+        this.$store.state.admin.pending = this.pending;
+        this.$store.state.admin.stopped = this.stopped;
+        this.$store.state.admin.running = this.running;
+         
     }
   }
 </script>

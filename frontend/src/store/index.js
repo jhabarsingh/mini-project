@@ -19,6 +19,12 @@ export default new Vuex.Store({
         "Hi"
       ]
     },
+    admin: {
+      all: [],
+      pending: [],
+      stoppped: [],
+      running: [],
+    },
     username: "Kubernetes Lab Setup",
     message: "Hey!",
     selectedItem: null,

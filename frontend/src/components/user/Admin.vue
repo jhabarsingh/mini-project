@@ -119,12 +119,22 @@
                 ></v-text-field>
 
                 <v-text-field
-                v-model="container_lifetime"
+                v-model="maxRuntime"
                 label="Container Max Running Time"
                 ></v-text-field>
 
                 <v-text-field
-                v-model="container_maxreplica"
+                v-model="cpuLimit"
+                label="Container Max CPU Limit"
+                ></v-text-field>
+
+                <v-text-field
+                v-model="memLimit"
+                label="Container Max Memory Limit"
+                ></v-text-field>
+
+                <v-text-field
+                v-model="maxReplicas"
                 label="Container Max Replicas"
                 type="text"
                 required
@@ -146,10 +156,13 @@
 </template>
 
 <script>
+import axios from 'axios';
+
   export default {
     data: () => ({
       data: null,
-      valid: true, 
+      valid: true,
+      id: null, 
       name: '',
       username: '',
       app : '',
@@ -158,36 +171,46 @@
       image : '',
       status: '',
       port : '',
-      container_lifetime: '120',
-      container_maxreplica: '5',
+      cpuLimit: '1000',
+      memLimit: '1000',
+      maxRuntime: '120',
+      maxReplicas: '5',
       select: null
     }),
     methods: {
-      login () {
+      async login () {
         this.$refs.form.validate()
          let a = this.$refs.form.validate()
         
         if(true) {
-          this.$store.dispatch('userLogin', {
-            username: this.username,
-            password: this.password
-          })
-          .then(res => {
-            this.$store.state.isLoggedin = true;
-            this.$store.state.username = this.username
-            localStorage.setItem("username", this.username);
-            
-            this.$router.push("/home");
-          })
-          .catch(err => {
-            this.$store.commit('changeDialog', {
-              'heading': 'Instructions',
-              details: [
-                'email and password should be valid',
-              ]
-            })
-            this.$store.state.dialog = true;
-          })
+          let token = localStorage.getItem("access");
+            const requirements = {
+                id: this.id,
+                name : this.name,
+                app : this.app,
+                cpu : this.cpu,
+                memory : this.memory,
+                image : this.image,
+                port : this.port,
+                cpuLimit: this.cpuLimit,
+                memLimit: this.memLimit,
+                maxRuntime: this.maxRuntime,
+                maxReplicas: this.maxReplicas,
+            };
+
+            try {
+              const response = await axios.post(this.$store.state.URL + "api/admin/update-requirement",
+              {
+                  requirements
+              },
+              { 
+                  headers: {"Authorization" : `Bearer ${token}`}
+              });
+
+              console.log(response) 
+            } catch(err) {
+              console.log(err.response)
+            }
         }
       }
     },
@@ -202,8 +225,23 @@
       this.status = this.data.status;
       this.cpu = this.data.cpu;
       this.memory = this.data.memory;
-      this.
-      console.log(this.data);
+      this.id = this.data._id;
+
+      // if(this.data["maxReplicas"] != undefined) {
+      //   this.maxReplicas = this.data.maxReplicas
+      // }
+
+      // if(this.data["memLimit"] != undefined) {
+      //   this.memLimit = this.data.memLimit
+      // }
+
+      // if(this.data["maxRuntime"] != undefined) {
+      //   this.maxRuntime = this.data.maxRuntime
+      // }
+
+      // if(this.data["maxReplicas"] != undefined) {
+      //   this.maxReplicas = this.data.maxReplicas
+      // }
     }
   }
 </script>

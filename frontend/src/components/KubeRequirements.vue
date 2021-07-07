@@ -71,16 +71,13 @@
             </v-form>
             </template>
 
-            <DialogAlert />
     </v-card>
 </template>
 
 <script>
-  import DialogAlert from './DialogAlert.vue'
   import axios from 'axios'
   export default {
     components: {
-      DialogAlert
     },
     data: vm => ({
       select: null,

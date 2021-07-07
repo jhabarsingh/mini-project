@@ -2,6 +2,58 @@
 <div
   style="max-width:800px;margin:auto;"
 >
+    <v-card
+      style="margin-bottom: 20px;"
+    >
+          <v-list>
+            <v-list-item>
+                <div style="margin:auto" class="text-center">
+                    <div>
+                      <v-btn
+                        class="ma-2"
+                        color="primary"
+                        dark
+                      >
+                        Run Container
+                        <v-icon
+                          dark
+                          right
+                        >
+                          mdi-checkbox-marked-circle
+                        </v-icon>
+                      </v-btn>
+
+                      <v-btn
+                        class="ma-2"
+                        color="red"
+                        dark
+                      >
+                        Stop Container
+                        <v-icon
+                          dark
+                          right
+                        >
+                          mdi-cancel
+                        </v-icon>
+                      </v-btn>
+
+                      <v-btn
+                        class="ma-2"
+                        dark
+                      >
+                        <v-icon
+                          dark
+                          left
+                        >
+                          mdi-minus-circle
+                        </v-icon>
+                        Delete Container
+                      </v-btn>
+                    </div>
+                  </div>
+            </v-list-item>
+          </v-list>
+    </v-card>
     <v-card>
         <template>
             <center 
@@ -89,17 +141,7 @@
             </v-form>
             </template>
     </v-card>
-    <v-card
-      style="margin-top: 10px;"
-    >
-          <v-list>
-            <v-list-item>
-              <v-list-item-avatar>
-                <v-img src="https://cdn.vuetifyjs.com/images/john.png"></v-img>
-              </v-list-item-avatar>
-            </v-list-item>
-          </v-list>
-    </v-card>
+
 </div>
 </template>
 

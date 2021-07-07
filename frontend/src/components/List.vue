@@ -1,12 +1,12 @@
 <template>
   <v-card
-    class="mx-auto"
+    class="mx-auto overflow-hidden"
     width="256"
-    tile
   >
     <v-navigation-drawer 
         v-model="$store.state.drawer"
         app
+        temporary
     >
       <v-system-bar></v-system-bar>
       <v-list>

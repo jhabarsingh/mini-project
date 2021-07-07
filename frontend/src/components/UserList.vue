@@ -53,7 +53,7 @@
                     headers: {"Authorization" : `Bearer ${token}`}
         });
 
-        console.log(response.data);
+        console.log(token);
 
         this.allUsers = await response.data.data;
         console.log("Shiva",this.allUsers)

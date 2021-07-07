@@ -1,5 +1,7 @@
 <template>
-  <v-card class="overflow-hidden">
+  <v-card class="overflow-hidden"
+    style="position;relative;top:-70px;"
+  >
     <v-app-bar
       absolute
       color="#6A76AB"
@@ -17,11 +19,7 @@
         ></v-img>
       </template>
 
-      <v-btn icon>
-        <v-icon large dark @click="$router.push('/')">mdi-home</v-icon>
-      </v-btn>
-
-      <v-app-bar-title>Users</v-app-bar-title>
+      <v-toolbar-title>Users </v-toolbar-title>
 
       <v-spacer></v-spacer>
 

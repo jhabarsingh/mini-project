@@ -128,7 +128,7 @@ def deployDeployment():
         req.exposedPort=Kube.deploy(req,core_v1,apps_v1)
         req.status = "running"
         req.save()
-        return {'message':'Deleted Successfully'},200
+        return {'message':'Deployed Successfully'},200
     else:
         return AppError.error("The container is already running")
 
@@ -146,5 +146,20 @@ def deleteDeployment():
         req.exposedPort = 8080
         req.save()
         return {'message':'Deleted Successfully'},200
+    else:
+        return AppError.error("The container is not running")
+
+@admin.route('/re-request',methods=['POST'])
+@jwt_required()
+@handleErrors
+@adminRoute
+def reRequest():
+    data = request.get_json()
+    _id =  data['id']
+    req = UserDeploymentRequest.objects(id=_id).first()
+    if(req.status!="running"):
+        req.status = "pending"
+        req.save()
+        return {'message':'Requested Successfully'},200
     else:
         return AppError.error("The container is already running")

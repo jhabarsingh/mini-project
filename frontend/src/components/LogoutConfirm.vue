@@ -52,8 +52,8 @@
             this.$store.state.dialog = false;
             this.$store.state.username = "SIMADIAN";
             
-            this.state.role = null;
-            this.$router.push('/home')
+            this.$store.state.role = null;
+            this.$router.push('/login')
         }
     }
   }

@@ -12,7 +12,8 @@ admin = Blueprint('admin',__name__,url_prefix='/admin')
 def getRequets():
     identity = get_jwt_identity()
     user = Users.objects(id = identity).first()
-    if(user.role=="admin"):
+    print(user.role)
+    if(user.role=="Admin"):
         requirements = UserDeploymentRequest.objects
         requirements = list(map(addUsernames,requirements))
         pending = list(filter(lambda x:x['status']=='pending',requirements))
@@ -61,7 +62,7 @@ def getRequets():
 def getUsers():
     identity = get_jwt_identity()
     user = Users.objects(id = identity).first()
-    if(user.role=="admin"):
+    if(user.role=="Admin"):
         users = Users.objects.exclude('id').exclude('password')
         admins = list(filter(lambda x:x.role=='admin',users))
         userss = list(filter(lambda x:x.role=='user',users))
@@ -85,7 +86,7 @@ def getUsers():
 def updateRequirement():
     identity = get_jwt_identity()
     user = Users.objects(id = identity).first()
-    if(user.role=="admin"):
+    if(user.role=="Admin"):
         data = request.get_json()
         _id =  data['id']
         req = UserDeploymentRequest.objects(id=_id).first()

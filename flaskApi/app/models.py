@@ -7,19 +7,8 @@ class Users(db.Document):
     password = db.StringField(required=True)
     role = db.StringField(required=True)
 
-# class RegisterKeys(db.Document):
-#     by = db.ReferenceField('Users',required=True)
-
-# class SyncData(db.Document):
-#     of = db.ReferenceField('Users',required=True)
-#     url = db.StringField(required = True,unique_with='of')
-#     thumb = db.StringField(required = True)
-#     title = db.StringField()
-#     type = db.StringField(required=True)
-
 class UserDeploymentRequest(db.Document):
-    name = db.StringField(required=True,unique=True)
-    app = db.StringField(required=True,unique=True)
+    name = db.StringField(required=True)
     image = db.StringField(required=True)
     port = db.IntField(required=True)
     cpu = db.StringField(required=True)
@@ -31,3 +20,7 @@ class UserDeploymentRequest(db.Document):
     memLimit =  db.StringField()
     cpuLimit = db.StringField()
     maxRuntime = db.IntField()
+    appName = db.StringField()
+    deploymentName = db.StringField()
+    serviceName = db.StringField()
+    exposedPort = db.IntField()

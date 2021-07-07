@@ -1,8 +1,8 @@
 from flask import Flask, Blueprint, request, jsonify
-
 from flask_mongoengine import MongoEngine
 from flask_jwt_extended import JWTManager
 from flask_cors import CORS
+from kubernetes import client, config
 
 
 app = Flask(__name__)
@@ -14,6 +14,9 @@ jwt = JWTManager(app=app)
 
 db = MongoEngine(app)
 
+config.load_kube_config()
+apps_v1 = client.AppsV1Api()
+core_v1= client.CoreV1Api()
 
 api = Blueprint('api',__name__,url_prefix='/api')
 

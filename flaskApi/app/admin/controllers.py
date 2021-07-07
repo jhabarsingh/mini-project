@@ -3,8 +3,9 @@ from flask_jwt_extended import get_jwt_identity,jwt_required
 
 from app.error import handleErrors,AppError
 from app.models import  UserDeploymentRequest,Users
-from app.utils import addUsernames
+from app.utils import addUsernames,Kube
 from app.middleware import adminRoute
+from app import apps_v1,core_v1
 
 admin = Blueprint('admin',__name__,url_prefix='/admin')
 
@@ -99,7 +100,6 @@ def updateRequirement():
         req.maxRuntime = data['maxRuntime']
     req.save()
     return {'message':'Updated Successfully'},200
-    
 
 @admin.route('/delete-container',methods=['POST'])
 @jwt_required()
@@ -114,3 +114,37 @@ def deleteContainer():
         return {'message':'Deleted Successfully'},200
     else:
         return AppError.error("The container is running")
+
+@admin.route('/deploy',methods=['POST'])
+@jwt_required()
+@handleErrors
+@adminRoute
+def deleteContainer():
+    data = request.get_json()
+    _id =  data['id']
+    req = UserDeploymentRequest.objects(id=_id).first()
+    if(req.status!="running"):
+        Kube.deploy(req,core_v1,apps_v1)
+        req.status = "running"
+        req.exposedPort = 8080
+        req.save()
+        return {'message':'Deleted Successfully'},200
+    else:
+        return AppError.error("The container is already running")
+
+@admin.route('/delete',methods=['POST'])
+@jwt_required()
+@handleErrors
+@adminRoute
+def deleteContainer():
+    data = request.get_json()
+    _id =  data['id']
+    req = UserDeploymentRequest.objects(id=_id).first()
+    if(req.status=="running"):
+        Kube.delete(req,core_v1,apps_v1)
+        req.status = "stopped"
+        req.exposedPort = 8080
+        req.save()
+        return {'message':'Deleted Successfully'},200
+    else:
+        return AppError.error("The container is already running")

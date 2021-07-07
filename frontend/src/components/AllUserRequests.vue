@@ -41,10 +41,10 @@
             <v-list-item :key="item.title">
               <template v-slot:default="{  }">
                 <v-list-item-content>
-                  <v-list-item-title v-text="item.by"></v-list-item-title>
+                  <v-list-item-title v-text="item.name"></v-list-item-title>
 
 
-                  <v-list-item-subtitle v-text="item.app"></v-list-item-subtitle>
+                  <v-list-item-subtitle v-text="item.image"></v-list-item-subtitle>
                 </v-list-item-content>
 
                 <v-spacer />
@@ -58,9 +58,33 @@
 
                     <v-btn icon
                             style="margin-left: 5px;"
-                        @click="setDialog(index)"
+                        @click="deleteFromDB(index)"
                     >
                         <v-icon>mdi-delete</v-icon>
+                    </v-btn>
+                        <v-btn icon
+                            style="margin-left: 5px;"
+                            v-if="item.status=='running'"
+                        @click="deleteContainer(index)"
+
+                    >
+                        <v-icon>mdi-cancel</v-icon>
+                    </v-btn>
+                                 <v-btn icon
+                            style="margin-left: 5px;"
+                            v-if="item.status=='stopped'"
+                        @click="runStoppedContainer(index)"
+
+                    >
+                        <v-icon>mdi-reload</v-icon>
+                    </v-btn>
+                    <v-btn icon
+                            style="margin-left: 5px;"
+                            v-if="item.status=='running'"
+                            :href="`http://172.16.16.102:${item.exposedPort}`"
+
+                    >
+                        <v-icon>mdi-send</v-icon>
                     </v-btn>
 
                 </div>
@@ -118,7 +142,8 @@
       ],
       filter: "All",
       page: null,
-      count: null
+      count: null,
+      token:""
     }),
 
     watch: {
@@ -134,6 +159,57 @@
 
     },  
     methods: {
+          async deleteFromDB(index){
+            console.log(this.items[index]._id)
+              try {
+              const response = await axios.post(this.$store.state.URL + "api/user/delete-entry",
+              {
+                  id:this.items[index]._id
+              },
+              { 
+                  headers: {"Authorization" : `Bearer ${this.token}`}
+              });
+
+              console.log(response)
+              this.$router.go() 
+            } catch(err) {
+              console.log(err)
+            }
+      },
+          async deleteContainer(index){
+            console.log(this.items[index]._id)
+              try {
+              const response = await axios.post(this.$store.state.URL + "api/admin/delete",
+              {
+                  id:this.items[index]._id
+              },
+              { 
+                  headers: {"Authorization" : `Bearer ${this.token}`}
+              });
+
+              console.log(response)
+              this.$router.go() 
+            } catch(err) {
+              console.log(err)
+            }
+      },
+          async runStoppedContainer(index){
+           
+              try {
+              const response = await axios.post(this.$store.state.URL + "api/admin/re-request",
+              {
+                  id:this.items[index]._id
+              },
+              { 
+                  headers: {"Authorization" : `Bearer ${this.token}`}
+              });
+
+        
+              this.$router.go() 
+            } catch(err) {
+              console.log(err)
+            }
+      },
       goTo(message) {
         this.$router.push({
           name: 'Admin',
@@ -143,9 +219,9 @@
     },
     async created() {
       let item;
-      let token = localStorage.getItem("access");
+     this.token=localStorage.getItem("access");
       let config = {
-        headers: {"Authorization" : `Bearer ${token}`}
+        headers: {"Authorization" : `Bearer ${this.token}`}
       }
         let link = this.$store.state.URL + "api/admin/get-requests";
 

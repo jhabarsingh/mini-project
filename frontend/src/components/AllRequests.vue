@@ -44,7 +44,8 @@
                   <v-list-item-title v-text="item.by"></v-list-item-title>
 
 
-                  <v-list-item-subtitle v-text="item.app"></v-list-item-subtitle>
+                  <v-list-item-subtitle v-text="item.name"></v-list-item-subtitle>
+                  <v-list-item-subtitle v-text="item.image"></v-list-item-subtitle>
                 </v-list-item-content>
 
                 <v-spacer />
@@ -62,6 +63,14 @@
                     >
                         <v-icon
                         > mdi-wrench</v-icon>
+                    </v-btn>
+                        <v-btn icon
+                            style="margin-left: 5px;"
+                            v-if="item.status=='running'"
+                            :href="`http://172.16.16.100:${item.exposedPort}`"
+
+                    >
+                        <v-icon>mdi-send</v-icon>
                     </v-btn>
 
                 </div>

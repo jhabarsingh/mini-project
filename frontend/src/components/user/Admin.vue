@@ -13,6 +13,8 @@
                         class="ma-2"
                         color="primary"
                         dark
+                        @click="runContainer"
+                        v-if="status!='running'"
                       >
                         Run Container
                         <v-icon
@@ -27,6 +29,8 @@
                         class="ma-2"
                         color="red"
                         dark
+                        @click="stopContainer"
+                        v-if="status=='running'"
                       >
                         Stop Container
                         <v-icon
@@ -40,6 +44,7 @@
                       <v-btn
                         class="ma-2"
                         dark
+                        @click="deleteContainer"
                       >
                         <v-icon
                           dark
@@ -165,19 +170,70 @@ import axios from 'axios';
       id: null, 
       name: '',
       username: '',
-      app : '',
       cpu : '',
       memory : '',
       image : '',
       status: '',
       port : '',
-      cpuLimit: '1000',
-      memLimit: '1000',
+      cpuLimit: '500m',
+      memLimit: '500Mi',
       maxRuntime: '120',
       maxReplicas: '5',
-      select: null
+      select: null,
+      token:""
     }),
     methods: {
+      async runContainer(){
+
+              try {
+              const response = await axios.post(this.$store.state.URL + "api/admin/deploy",
+              {
+                  id:this.id
+              },
+              { 
+                  headers: {"Authorization" : `Bearer ${this.token}`}
+              });
+
+              console.log(response) 
+              this.$router.go(-1)
+            } catch(err) {
+              console.log(err)
+            }
+      },
+      async stopContainer(){
+
+              try {
+              const response = await axios.post(this.$store.state.URL + "api/admin/delete",
+              {
+                  id:this.id
+              },
+              { 
+                  headers: {"Authorization" : `Bearer ${this.token}`}
+              });
+
+              console.log(response) 
+              this.$router.go(-1) 
+            } catch(err) {
+              console.log(err)
+            }
+      },
+      async deleteContainer(){
+
+              try {
+              const response = await axios.post(this.$store.state.URL + "api/user/delete-entry",
+              {
+                  id:this.id
+              },
+              { 
+                  headers: {"Authorization" : `Bearer ${this.token}`}
+              });
+
+              console.log(response)
+              this.$router.go(-1) 
+            } catch(err) {
+              console.log(err)
+            }
+      },
       async login () {
         this.$refs.form.validate()
          let a = this.$refs.form.validate()
@@ -187,7 +243,6 @@ import axios from 'axios';
             const requirements = {
                 id: this.id,
                 name : this.name,
-                app : this.app,
                 cpu : this.cpu,
                 memory : this.memory,
                 image : this.image,
@@ -204,7 +259,7 @@ import axios from 'axios';
                   requirements
               },
               { 
-                  headers: {"Authorization" : `Bearer ${token}`}
+                  headers: {"Authorization" : `Bearer ${this.token}`}
               });
 
               console.log(response) 
@@ -219,14 +274,13 @@ import axios from 'axios';
       this.data = this.$route.query
       this.username = this.data.by;
       this.name = this.data.name;
-      this.app = this.data.app;
       this.image = this.data.image;
       this.port = this.data.port;
       this.status = this.data.status;
       this.cpu = this.data.cpu;
       this.memory = this.data.memory;
       this.id = this.data._id;
-
+      this.token=localStorage.getItem("access");
       // if(this.data["maxReplicas"] != undefined) {
       //   this.maxReplicas = this.data.maxReplicas
       // }

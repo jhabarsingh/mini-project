@@ -122,7 +122,6 @@ def deployDeployment():
 @admin.route('/delete',methods=['POST'])
 @jwt_required()
 @handleErrors
-@adminRoute
 def deleteDeployment():
     data = request.get_json()
     _id =  data['id']
@@ -139,7 +138,6 @@ def deleteDeployment():
 @admin.route('/re-request',methods=['POST'])
 @jwt_required()
 @handleErrors
-@adminRoute
 def reRequest():
     data = request.get_json()
     _id =  data['id']

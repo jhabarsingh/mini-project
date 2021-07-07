@@ -24,12 +24,6 @@
                 required
                 ></v-text-field>
                 
-                <v-text-field
-                v-model="app"
-                :rules="nameRules"
-                label="Container Name"
-                required
-                ></v-text-field>
                 
                 <v-text-field
                 v-model="image"
@@ -83,7 +77,6 @@
       select: null,
       valid: true,
       name: '',
-      app : '',
       cpu : '',
       memory : '',
       image : '',
@@ -100,7 +93,6 @@
             let token = localStorage.getItem("access");
             const requirements = {
                 name : this.name,
-                app : this.app,
                 cpu : this.cpu,
                 memory : this.memory,
                 image : this.image,

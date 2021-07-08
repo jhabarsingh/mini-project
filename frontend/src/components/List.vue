@@ -51,6 +51,21 @@
               <v-list-item-title v-text="item.text"></v-list-item-title>
             </v-list-item-content>
           </v-list-item>
+
+          
+          <v-list-item
+            v-if='this.$store.state.role && this.$store.state.role.toLowerCase() == "admin"'
+            :href="dashboard"
+          >
+            <v-list-item-icon>
+              <v-icon>mdi-view-dashboard</v-icon>
+            </v-list-item-icon>
+
+            <v-list-item-content>
+              <v-list-item-title>Lab Dashboard</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
@@ -66,6 +81,7 @@
         { text: 'Home', icon: 'mdi-home', route: 'home' , disabled: false},
         { text: 'Deploy Container', icon: 'mdi-cloud-upload', route: 'kube-requirements', disabled: (localStorage.getItem("access") ? false: true) },
       ],
+      dashboard: "http://127.0.0.1:43019/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/#/overview?namespace=default"
     }),
     props: [
         "drawer",
@@ -78,8 +94,8 @@
     },
     created() {
       if(this.$store.state.role && this.$store.state.role.toLowerCase() == "admin") {
-          this.items.push({ text: 'All Container', icon: 'mdi-folder-open', route: 'all-requests', disabled: (localStorage.getItem("access") ? false: true) })
-          this.items.push({ text: 'All Users', icon: 'mdi-account', route: 'all-users', disabled: (localStorage.getItem("access") ? false: true) })
+          this.items.push({ text: 'Requested Container', icon: 'mdi-folder-open', route: 'all-requests', disabled: (localStorage.getItem("access") ? false: true) })
+          this.items.push({ text: 'Registered Users', icon: 'mdi-account', route: 'all-users', disabled: (localStorage.getItem("access") ? false: true) })
         }
 
       else if(this.$store.state.role && this.$store.state.role.toLowerCase() == "user") {

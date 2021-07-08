@@ -2,6 +2,8 @@
 <div
   style="max-width:800px;margin:auto;"
 >
+    <Alert :message='message' :alert="alert" />
+
     <v-card
       style="margin-bottom: 20px;"
     >
@@ -140,6 +142,7 @@
                 required
                 ></v-text-field>
 
+
                 <v-btn
                 color="primary"
                 class="mr-4"
@@ -147,6 +150,11 @@
                 >
                 Update
                 </v-btn>
+
+                <small
+                  style="color: orange;letter-spacing:1px;font-size:15px;"
+                  v-if="update_success"
+                >updated succesfully</small>
 
             </v-form>
             </template>
@@ -157,7 +165,7 @@
 
 <script>
 import axios from 'axios';
-
+import Alert from '../Alert.vue'
   export default {
     data: () => ({
       data: null,
@@ -175,8 +183,14 @@ import axios from 'axios';
       maxRuntime: '120',
       maxReplicas: '5',
       select: null,
-      token:""
+      token:"",
+      update_success: false,
+      message: "",
+      alert: false
     }),
+    components: {
+      Alert
+    },
     methods: {
       async runContainer(){
 
@@ -189,8 +203,12 @@ import axios from 'axios';
                   headers: {"Authorization" : `Bearer ${this.token}`}
               });
 
-              console.log(response) 
-              this.$router.push('/all-requests')
+              this.message = "Container Started Successfully";
+              this.alert = true;
+              setTimeout(() => {
+                this.$router.push('/all-requests')
+              }, 2000);
+
             } catch(err) {
               console.log(err)
             }
@@ -205,9 +223,13 @@ import axios from 'axios';
               { 
                   headers: {"Authorization" : `Bearer ${this.token}`}
               });
-
-              console.log(response) 
-              this.$router.push('/all-requests')
+              
+              this.message = "Container Stopped Successfully";
+              this.alert = true;
+              setTimeout(() => {
+                this.$router.push('/all-requests')
+              }, 2000);
+            
             } catch(err) {
               console.log(err)
             }
@@ -223,8 +245,11 @@ import axios from 'axios';
                   headers: {"Authorization" : `Bearer ${this.token}`}
               });
 
-              console.log(response)
-              this.$router.push('/all-requests')
+              this.message = "Container Deleted Successfully";
+              this.alert = true;
+              setTimeout(() => {
+                this.$router.push('/all-requests')
+              }, 2000);
             } catch(err) {
               console.log(err)
             }
@@ -263,9 +288,15 @@ import axios from 'axios';
               }
               console.log(requirements);
 
-              this.$router.push({
-                query: requirements
-              })
+              this.update_success = true;
+
+              setTimeout(() => {
+                this.update_success = false;
+                this.$router.replace({
+                  query: requirements
+                })
+              }, 2000);
+
             } catch(err) {
               console.log(err.response)
             }

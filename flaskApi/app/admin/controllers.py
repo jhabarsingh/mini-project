@@ -148,3 +148,25 @@ def reRequest():
         return {'message':'Requested Successfully'},200
     else:
         return AppError.error("The container is already running")
+
+
+@admin.route('/delete-user',methods=['POST'])
+@jwt_required()
+@adminRoute
+def deleteUser():
+    data = request.get_json()
+    username = data.get("username")
+    user = Users.objects(username=username).first()
+    containers = UserDeploymentRequest.objects(by=user)
+
+    if len(containers) == 0:
+        user.delete()
+        response = jsonify({'data':{
+            'message': 'username deleted succesfully'
+        }})
+        return response,200
+
+    response = jsonify({'data': {
+        'message': 'delete containers first'
+    }})
+    return response, 404

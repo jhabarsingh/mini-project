@@ -35,7 +35,7 @@
           color="primary"
           depressed
         >
-          {{ users }}
+          {{ this.$store.state.users_count }}
         </v-btn>
       </v-badge>
 

@@ -16,6 +16,7 @@
             <v-icon
             md
             color="green darken-2"
+            @click="deleteUser(item.username)"
             >
                 mdi-delete
             </v-icon>
@@ -57,8 +58,10 @@
         console.log(token);
 
         this.allUsers = await response.data.data;
-        console.log("Shiva",this.allUsers)
-       
+        let counter = this.allUsers.users.array.length + this.allUsers.admins.array.length;
+        
+        this.$store.state.users_count = counter;
+        console.log(this.allUsers)
         if(this.index == 'b'){
             this.items = this.allUsers.users.array
         }
@@ -75,17 +78,35 @@
               user: user
             }
           })
+        },
+        async deleteUser(user) {
+          let token = localStorage.getItem("access");
+
+          try {
+            const response = await axios.post(this.$store.state.URL + "api/admin/delete-user",
+            {
+              username: user
+            },
+            { 
+                        headers: {"Authorization" : `Bearer ${token}`}
+            });
+            console.log(response)
+          }
+          catch(err) {
+            console.log(err.response);
+          }
+
         }
     },
     watch: {
         index(){
             
-        if(this.index == 'b'){
-            this.items = this.allUsers.users.array
-        }
-        else{
-            this.items = this.allUsers.admins.array
-        }
+          if(this.index == 'b'){
+              this.items = this.allUsers.users.array
+          }
+          else{
+              this.items = this.allUsers.admins.array
+          }
         }
     },
 

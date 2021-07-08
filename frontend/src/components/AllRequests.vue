@@ -152,6 +152,24 @@
           name: 'Admin',
           query: message
         })
+      },
+      filterByName(username) {
+        this.all = this.all.filter(e => {
+          return (e.by == username);
+        })
+
+        this.pending = this.pending.filter(e => {
+          return (e.by == username);
+        })
+
+        this.running = this.running.filter(e => {
+          return (e.by == username);
+        })
+
+        this.stopped = this.stopped.filter(e => {
+          return (e.by == username);
+        })
+
       }
     },
     async created() {
@@ -162,7 +180,6 @@
       }
         let link = this.$store.state.URL + "api/admin/get-requests";
 
-        console.log(link)
         let response = await axios.post(link , {}, config)
         let items = await response.data.data;
 
@@ -173,8 +190,14 @@
         this.pending = this.pending.array;
         this.stopped = this.stopped.array;
         this.running = this.running.array;
-
+      
         this.all = [...this.pending, ...this.stopped, ...this.running];
+
+        let a = this.$route.query.user;
+        if(a != undefined && a.length) {
+          this.filterByName(a);
+        }
+
         this.items = this.all;
         this.$store.state.admin.all = this.all;
         this.$store.state.admin.pending = this.pending;

@@ -26,6 +26,7 @@
           <v-btn
             class="mx-1"
             color="primary"
+            @click="getContainers(item.username)"
           >
             Containers
           </v-btn>
@@ -67,7 +68,14 @@
     },
     
     methods: {
-        
+        getContainers(user) {
+          this.$router.push({
+            name: 'AllRequests',
+            query: {
+              user: user
+            }
+          })
+        }
     },
     watch: {
         index(){

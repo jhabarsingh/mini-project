@@ -19,7 +19,6 @@
             >
                 <v-text-field
                 v-model="name"
-                :rules="nameRules"
                 label="Deployement Name"
                 required
                 ></v-text-field>
@@ -27,28 +26,24 @@
                 
                 <v-text-field
                 v-model="image"
-                :rules="nameRules"
                 label="Image Name"
                 required
                 ></v-text-field>
                 
                 <v-text-field
                 v-model="port"
-                :rules="nameRules"
                 label="Port Number"
                 required
                 ></v-text-field>
                 
                 <v-text-field
                 v-model="cpu"
-                :rules="nameRules"
                 label="CPU Requirement"
                 required
                 ></v-text-field>
                 
                 <v-text-field
                 v-model="memory"
-                :rules="nameRules"
                 label="Memory Requirement"
                 required
                 ></v-text-field>
@@ -61,6 +56,11 @@
                 >
                 Deploy
                 </v-btn>
+
+                <small
+                  style="color: orange;letter-spacing:1px;font-size:15px;"
+                  v-if="update_success"
+                >Deployed succesfully</small>
 
             </v-form>
             </template>
@@ -84,6 +84,7 @@
       nameRules: [
         v => !!v || 'Name is required',
       ],
+      update_success: false
     }),
 
     methods: {
@@ -99,7 +100,6 @@
                 port : this.port
             };
 
-            console.log(requirements);
             const response = await axios.post("http://localhost:8000/api/user/send-requirements",
                 {
                     requirements
@@ -107,7 +107,12 @@
                 { 
                     headers: {"Authorization" : `Bearer ${token}`}
                 });
-            console.log(response.data);
+
+              this.update_success = true;
+
+              setTimeout(() => {
+                this.update_success = false;
+              }, 2000);
         }
       },
 

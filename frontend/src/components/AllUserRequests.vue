@@ -1,5 +1,11 @@
 <template>
   <div>
+
+    <Alert
+      class="mx-auto"
+      style="max-width:1000px;margin-top:40px;"
+      :message='message' :alert="alert" />
+
     <v-card
       class="mx-auto"
       max-width="1000"
@@ -124,6 +130,7 @@
 
 <script>
   import axios from 'axios';
+  import Alert from './Alert.vue';
   export default {
     data: () => ({
       selected: [2],
@@ -143,9 +150,13 @@
       filter: "All",
       page: null,
       count: null,
-      token:""
+      token:"",
+      message: "",
+      alert: false,
     }),
-
+    components: {
+      Alert
+    },
     watch: {
       filter: function(val) {
         let a = val[0];
@@ -169,9 +180,13 @@
               { 
                   headers: {"Authorization" : `Bearer ${this.token}`}
               });
-
-              console.log(response)
-              this.$router.push('/all-user-requests') 
+              
+              this.message = "Container Deleted Successfully";
+              this.alert = true;
+              setTimeout(() => {
+                this.$router.go(this.$router.currentRoute)
+              }, 2000);
+              
             } catch(err) {
               console.log(err)
             }
@@ -187,8 +202,12 @@
                   headers: {"Authorization" : `Bearer ${this.token}`}
               });
 
-              console.log(response)
-              this.$router.push('/all-user-requests') 
+              this.message = "Container Stopped Successfully";
+              this.alert = true;
+              setTimeout(() => {
+                this.$router.go(this.$router.currentRoute)
+              }, 2000);
+
             } catch(err) {
               console.log(err)
             }
@@ -204,8 +223,12 @@
                   headers: {"Authorization" : `Bearer ${this.token}`}
               });
 
-        
-              this.$router.push('/all-user-requests') 
+              this.message = "Container Running Successfully";
+              this.alert = true;
+              setTimeout(() => {
+                this.$router.go(this.$router.currentRoute)
+              }, 2000);
+
             } catch(err) {
               console.log(err)
             }

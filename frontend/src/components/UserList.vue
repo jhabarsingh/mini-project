@@ -1,4 +1,11 @@
 <template>
+<div>
+  <Alert 
+    :message="message"
+    :alert="alert"
+    style="max-width:600px; margin:auto"
+  />
+
   <v-card
     class="mx-auto"
     max-width="600"
@@ -35,20 +42,27 @@
       </v-list-item-group>
     </v-list>
   </v-card>
+</div>
 </template>
 
 <script>
     import axios from 'axios'
+    import Alert from './Alert.vue'
     export default {
     data: () => ({
         allUsers : [],
         items: [],
-        model: 1
+        model: 1,
+        message: "",
+        alert: false
     }),
 
     props: [
         'index'
     ],
+    components: {
+      Alert
+    },
     async created(){
         let token = localStorage.getItem("access");
         const response = await axios.post("http://localhost:8000/api/admin/get-users",{},{ 
@@ -90,9 +104,25 @@
             { 
                         headers: {"Authorization" : `Bearer ${token}`}
             });
-            console.log(response)
+
+            this.message = `Sucessfully Deleted the User`
+            this.alert = true;
+            setTimeout(() => {
+              this.$router.push("/all-users")
+              }, 2000);
+
           }
           catch(err) {
+            if(err.response.status == 404) {
+              this.message = `Please delete ${user}'s all containers first`
+              this.alert = true;
+              setTimeout(() => {
+                  this.alert = false;
+                  this.message = "";
+                }, 5000);
+
+            }
+            console.log(err.response.status);
             console.log(err.response);
           }
 

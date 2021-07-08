@@ -19,7 +19,6 @@
             >
                 <v-text-field
                 v-model="username"
-                :rules="nameRules"
                 label="Username"
                 required
                 ></v-text-field>
@@ -42,7 +41,6 @@
                 <v-text-field
                 v-model="confirm_password"
                 label="Confirm Password"
-                :rules="[handlePassword]"
                 required
                 type="password"
                 ></v-text-field>
@@ -72,10 +70,10 @@
     data: vm => ({
       select: null,
       valid: true,
-      items: ['User'],
+      items: ['user'],
       username: '',
       password: '',
-      role : '', // admin,user
+      role : 'user', // admin,user
       confirm_password: '',
       nameRules: [
         v => !!v || 'Name is required',

@@ -20,7 +20,6 @@
               
                 <v-text-field
                 v-model="username"
-                :rules="nameRules"
                 label="Username"
                 required
                 ></v-text-field>
@@ -57,7 +56,8 @@ import DialogAlert from './DialogAlert.vue'
       valid: true,
       password: '',
       username: '',
-      select: null
+      select: null,
+      nameRules: '',
     }),
     methods: {
       login () {

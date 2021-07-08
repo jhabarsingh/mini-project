@@ -79,38 +79,33 @@
                 <v-text-field
                 v-model="username"
                 label="Deployer Name"
-                disabled="true"
+                :disabled="true"
                 ></v-text-field>
 
 
                 <v-text-field
                 v-model="name"
                 label="Deployement Name"
-                disabled="true"
+                :disabled="true"
                 ></v-text-field>
                 
-                <v-text-field
-                v-model="app"
-                label="Container Name"
-                disabled="true"
-                ></v-text-field>
                 
                 <v-text-field
                 v-model="image"
                 label="Image Name"
-                disabled="true"
+                :disabled="true"
                 ></v-text-field>
 
                 <v-text-field
                 v-model="status"
                 label="Status"
-                disabled="true"
+                :disabled="true"
                 ></v-text-field>
                 
                 <v-text-field
                 v-model="port"
                 label="Port Number"
-                disabled="true"
+                :disabled="true"
                 ></v-text-field>
                 
                 <v-text-field
@@ -148,7 +143,7 @@
                 <v-btn
                 color="primary"
                 class="mr-4"
-                @click="login"
+                @click="update"
                 >
                 Update
                 </v-btn>
@@ -195,7 +190,7 @@ import axios from 'axios';
               });
 
               console.log(response) 
-              this.$router.go(-1)
+              this.$router.push('/all-requests')
             } catch(err) {
               console.log(err)
             }
@@ -212,7 +207,7 @@ import axios from 'axios';
               });
 
               console.log(response) 
-              this.$router.go(-1) 
+              this.$router.push('/all-requests')
             } catch(err) {
               console.log(err)
             }
@@ -229,18 +224,18 @@ import axios from 'axios';
               });
 
               console.log(response)
-              this.$router.go(-1) 
+              this.$router.push('/all-requests')
             } catch(err) {
               console.log(err)
             }
       },
-      async login () {
+      async update () {
         this.$refs.form.validate()
          let a = this.$refs.form.validate()
         
         if(true) {
           let token = localStorage.getItem("access");
-            const requirements = {
+            let requirements = {
                 id: this.id,
                 name : this.name,
                 cpu : this.cpu,
@@ -261,8 +256,16 @@ import axios from 'axios';
               { 
                   headers: {"Authorization" : `Bearer ${this.token}`}
               });
+              
+              requirements = {
+                _id: this.id,
+                ...requirements
+              }
+              console.log(requirements);
 
-              console.log(response) 
+              this.$router.push({
+                query: requirements
+              })
             } catch(err) {
               console.log(err.response)
             }
@@ -281,21 +284,11 @@ import axios from 'axios';
       this.memory = this.data.memory;
       this.id = this.data._id;
       this.token=localStorage.getItem("access");
-      // if(this.data["maxReplicas"] != undefined) {
-      //   this.maxReplicas = this.data.maxReplicas
-      // }
-
-      // if(this.data["memLimit"] != undefined) {
-      //   this.memLimit = this.data.memLimit
-      // }
-
-      // if(this.data["maxRuntime"] != undefined) {
-      //   this.maxRuntime = this.data.maxRuntime
-      // }
-
-      // if(this.data["maxReplicas"] != undefined) {
-      //   this.maxReplicas = this.data.maxReplicas
-      // }
-    }
+      this.memLimit = this.data.memLimit;
+      this.maxRuntime = this.data.maxRuntime;
+      this.maxReplicas = this.data.maxReplicas;
+      this.cpuLimit = this.data.cpuLimit;
+      console.log(this.$route.query);
+    }   
   }
 </script>

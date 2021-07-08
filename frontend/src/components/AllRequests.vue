@@ -57,6 +57,16 @@
                         {{ item.status }}
                     </v-chip>
 
+                     <v-chip
+                      class="ma-2"
+                      color="green"
+                      text-color="white"
+                      v-if="item.status=='running'"
+                      :href="`http://172.16.16.100:${item.exposedPort}`"
+                    >
+                      Link
+                    </v-chip>
+
                     <v-btn icon
                         style="margin-left: 5px;"
                         @click="goTo(item)"
@@ -64,15 +74,8 @@
                         <v-icon
                         > mdi-wrench</v-icon>
                     </v-btn>
-                        <v-btn icon
-                            style="margin-left: 5px;"
-                            v-if="item.status=='running'"
-                            :href="`http://172.16.16.100:${item.exposedPort}`"
 
-                    >
-                        <v-icon>mdi-send</v-icon>
-                    </v-btn>
-
+                   
                 </div>
 
               </template>
@@ -152,14 +155,6 @@
       }
     },
     async created() {
-      if(this.$store.state.admin.all.length > 0) {
-        this.all = this.$store.state.admin.all;
-        this.pending = this.$store.state.admin.pending;
-        this.stopped = this.$store.state.admin.stopped;
-        this.running = this.$store.state.admin.running;
-        this.items = this.all;
-        return;
-      }
       let item;
       let token = localStorage.getItem("access");
       let config = {

@@ -171,7 +171,7 @@
               });
 
               console.log(response)
-              this.$router.go() 
+              this.$router.push('/all-user-requests') 
             } catch(err) {
               console.log(err)
             }
@@ -188,7 +188,7 @@
               });
 
               console.log(response)
-              this.$router.go() 
+              this.$router.push('/all-user-requests') 
             } catch(err) {
               console.log(err)
             }
@@ -205,7 +205,7 @@
               });
 
         
-              this.$router.go() 
+              this.$router.push('/all-user-requests') 
             } catch(err) {
               console.log(err)
             }

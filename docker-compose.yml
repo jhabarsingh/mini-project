@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+  mongo:
+     container_name: mongo
+     image: mongo
+     volumes:
+       - ./data:/data/db
+     ports:
+       - '27018:27017'
+
+  api:
+    build: api
+    command: ["python3", "run.py"]
+    volumes:
+      - ./api:/backend
+    environment:
+      - FLASK_ENV=development
+      - JWT_SECRET_KEY=4SXaDuJNRXteh877R7Z3baxIqwnB7QRwhe3yMNH9i+Ap7Ms9LDtXMF7g7BqOIvuotZIi3CdGGbBnsxU6ARPwJg==
+      - CSRF_SESSION_KEY=XZDPf+AM8Qi9M8eaY+p/amWJaNtXjCGmt1lbXFQ723A=
+      - SECRET=DdgI/G9DOXohsiZ1fHWgHw==
+      - MONGO_URI=mongodb://localhost:27018/usersdb
+
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mongo
+
+  client:
+    build: client
+    command: ["npm", "run", "serve"]
+    volumes:
+      - ./client:/frontend
+      - node-modules:/frontend/node_modules
+    environment:
+      - NODE_ENV=development
+    ports:
+      - '8080:8080'
+    depends_on:
+      - api
+
+volumes:
+  node-modules:

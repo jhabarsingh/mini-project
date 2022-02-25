@@ -1,1 +1,1 @@
-# mini-project
+# Kubernetes Lab Setup
